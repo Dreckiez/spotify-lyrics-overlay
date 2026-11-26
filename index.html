@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111827" />
+    <title>Spotify Lyrics Overlay</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <main class="overlay" id="overlay">
+      <header class="topbar" data-tauri-drag-region>
+        <div class="track-copy" data-tauri-drag-region>
+          <span class="track-title" id="track-title" data-tauri-drag-region>Waiting for Spotify</span>
+          <span class="track-separator" id="track-separator" data-tauri-drag-region hidden>·</span>
+          <span class="track-artist" id="track-artist" data-tauri-drag-region></span>
+        </div>
+        <div class="toolbar">
+          <span class="playback-state" id="playback-state">● Chờ phát</span>
+          <button class="icon-button" id="click-through-button" title="Bật/tắt xuyên chuột" aria-label="Bật/tắt xuyên chuột">
+            <span id="click-through-icon" aria-hidden="true">◉</span>
+          </button>
+          <button class="icon-button" id="settings-button" title="Cài đặt" aria-label="Cài đặt">⚙</button>
+        </div>
+      </header>
+
+      <section class="lyrics-panel" aria-live="polite">
+        <div class="lyrics-list" id="lyrics-list">
+          <p class="empty-state">Mở Spotify và phát một bài hát để bắt đầu.</p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span class="shortcut-hint">Ctrl + Shift + L · khóa chuột</span>
+      </footer>
+
+      <section class="settings" id="settings-panel" aria-labelledby="settings-title" hidden>
+        <div class="settings-header">
+          <div>
+            <span class="eyebrow">TÙY CHỈNH OVERLAY</span>
+            <h1 id="settings-title">Cài đặt</h1>
+          </div>
+          <button class="icon-button close-settings" id="close-settings-button" aria-label="Đóng cài đặt">×</button>
+        </div>
+
+        <form id="settings-form">
+          <label class="setting-row color-row">
+            <span>Màu chữ thường</span>
+            <input type="color" name="text_color" />
+          </label>
+          <label class="setting-row color-row">
+            <span>Màu câu đang hát</span>
+            <input type="color" name="active_color" />
+          </label>
+          <label class="setting-row range-row">
+            <span>Nền <output id="opacity-output">24%</output></span>
+            <input type="range" name="background_opacity" min="0" max="100" step="1" />
+          </label>
+          <label class="setting-row range-row">
+            <span>Cỡ chữ <output id="font-size-output">22 px</output></span>
+            <input type="range" name="font_size" min="12" max="36" step="1" />
+          </label>
+          <label class="setting-row range-row">
+            <span>Thu phóng ứng dụng <output id="scale-output">100%</output></span>
+            <input type="range" name="app_scale" min="50" max="200" step="5" />
+          </label>
+          <label class="setting-row select-row">
+            <span>Phông chữ</span>
+            <select name="font_family">
+              <option value="Segoe UI">Segoe UI</option>
+              <option value="Arial">Arial</option>
+              <option value="Verdana">Verdana</option>
+              <option value="Georgia">Georgia</option>
+              <option value="monospace">Monospace</option>
+            </select>
+          </label>
+          <label class="setting-row select-row">
+            <span>Căn lề</span>
+            <select name="alignment">
+              <option value="left">Trái</option>
+              <option value="center">Giữa</option>
+              <option value="right">Phải</option>
+            </select>
+          </label>
+          <div class="position-setting">
+            <span class="position-label">Chuyển nhanh đến góc</span>
+            <div class="snap-grid">
+              <button class="secondary-button snap-button" type="button" data-snap-position="top-left">↖ Trên trái</button>
+              <button class="secondary-button snap-button" type="button" data-snap-position="top-right">↗ Trên phải</button>
+              <button class="secondary-button snap-button" type="button" data-snap-position="bottom-left">↙ Dưới trái</button>
+              <button class="secondary-button snap-button" type="button" data-snap-position="bottom-right">↘ Dưới phải</button>
+            </div>
+          </div>
+          <label class="setting-row range-row">
+            <span>Độ trễ lời hát <output id="offset-output">0 ms</output></span>
+            <input type="range" name="offset_ms" min="-2000" max="2000" step="50" />
+          </label>
+          <div class="settings-actions">
+            <button class="secondary-button" id="reset-button" type="button">Mặc định</button>
+            <button class="primary-button" type="submit">Lưu cài đặt</button>
+          </div>
+          <p class="settings-note">Bạn luôn có thể kéo thanh trên cùng để đặt overlay ở bất kỳ đâu.</p>
+          <p class="settings-note" id="settings-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
